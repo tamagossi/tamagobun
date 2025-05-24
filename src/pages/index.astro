@@ -23,25 +23,27 @@ const posts = (await getCollection('posts')).sort(
         <ul class="flex flex-col gap-4">
           {
             posts.map((post) => {
+              const { title, description, publihsed_date, heroImage } = post.data;
+
               return (
                 <li>
                   <a href={`/${post.id}/`}>
                     <div class="flex flex-col gap-1">
                       <div class="flex flex-col">
                         <p class="text-sm text-gray-400">
-                          <FormattedDate date={post.data.publihsed_date} />
+                          <FormattedDate date={publihsed_date} />
                         </p>
 
-                        <h3 class="text-2xl font-semibold">{post.data.title}</h3>
+                        <h3 class="text-2xl font-semibold">{title}</h3>
                       </div>
 
                       <div class="flex gap-3">
                         <div class="flex-1">
-                          <p class="line-clamp-2 text-gray-500">{post.data.description}</p>
+                          <p class="line-clamp-2 text-gray-500">{description}</p>
                         </div>
 
                         <div class="w-[200px]">
-                          <img src={post.data.heroImage} alt="" width="200px" height="200px" />
+                          <img src={heroImage} alt="" width="200px" height="200px" />
                         </div>
                       </div>
                     </div>
