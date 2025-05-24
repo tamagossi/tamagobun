@@ -1,61 +1,57 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection } from 'astro:content';
 
-import { SITE_DESCRIPTION, SITE_TITLE } from "../consts";
-import BaseHead from "../components/BaseHead.astro";
-import FormattedDate from "../components/FormattedDate.astro";
-import MainLayout from "../layouts/MainLayout.astro";
-
-
+import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import BaseHead from '../components/BaseHead.astro';
+import FormattedDate from '../components/FormattedDate.astro';
+import MainLayout from '../layouts/MainLayout.astro';
 
 const posts = (await getCollection('posts')).sort(
-	(a, b) => b.data.publihsed_date.valueOf() - a.data.publihsed_date.valueOf(),
+  (a, b) => b.data.publihsed_date.valueOf() - a.data.publihsed_date.valueOf()
 );
 ---
 
 <!doctype html>
 <html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
+  <head>
+    <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
+  </head>
 
-	<body class="overflow-y-hidden">
-		<MainLayout>
-			<section class="flex-1 overflow-y-auto">
-				<ul class="flex flex-col gap-4">
-					{
-						posts.map((post) => {
-							return (
-								<li>
-									<a href={`/${post.id}/`}>
-										<div class="flex flex-col gap-1">
-											<div class="flex flex-col">
-												<p class="text-sm text-gray-400">
-													<FormattedDate date={post.data.publihsed_date} />
-												</p>
+  <body class="overflow-y-hidden">
+    <MainLayout>
+      <section class="flex-1 overflow-y-auto">
+        <ul class="flex flex-col gap-4">
+          {
+            posts.map((post) => {
+              return (
+                <li>
+                  <a href={`/${post.id}/`}>
+                    <div class="flex flex-col gap-1">
+                      <div class="flex flex-col">
+                        <p class="text-sm text-gray-400">
+                          <FormattedDate date={post.data.publihsed_date} />
+                        </p>
 
-												<h3 class="text-2xl font-semibold">{post.data.title}</h3>
-											</div>
+                        <h3 class="text-2xl font-semibold">{post.data.title}</h3>
+                      </div>
 
-												<div class="flex gap-2">
-													<div class="flex-1">
-														<p class="line-clamp-2 text-gray-500">
-															{post.data.description}
-														</p>
-													</div>
+                      <div class="flex gap-3">
+                        <div class="flex-1">
+                          <p class="line-clamp-2 text-gray-500">{post.data.description}</p>
+                        </div>
 
-													<div class="w-[200px]">
-														<img src={post.data.heroImage} alt="" width="200px" height="200px" />
-													</div>
-												</div>
-										</div>
-									</a>
-								</li>
-							)
-					})
-					}
-				</ul>
-			</section>
-		</MainLayout>
-	</body>
+                        <div class="w-[200px]">
+                          <img src={post.data.heroImage} alt="" width="200px" height="200px" />
+                        </div>
+                      </div>
+                    </div>
+                  </a>
+                </li>
+              );
+            })
+          }
+        </ul>
+      </section>
+    </MainLayout>
+  </body>
 </html>

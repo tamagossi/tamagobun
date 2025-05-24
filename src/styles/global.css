@@ -52,3 +52,7 @@ pre {
 		display: none; /* Chrome, Safari and Opera */
 	}
 }
+
+kbd {
+	@apply px-2 py-1 border rounded-md text-xs font-semibold;
+}
