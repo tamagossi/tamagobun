@@ -1,0 +1,138 @@
+---
+// ToCWithSubHeading.astro - Recursive component for ToC items with nested subheadings
+// Handles expand/collapse state and recursive rendering
+
+export interface Props {
+  item: {
+    id: string;
+    text: string;
+    level: number;
+    children: any[];
+  };
+  baseIndent?: number;
+}
+
+const { item, baseIndent = 0 } = Astro.props;
+const indent = baseIndent * 20;
+const hasChildren = item.children.length > 0;
+---
+
+<div class="toc-item" style={`margin-left: ${indent}px`}>
+  <div class="flex items-center gap-1">
+    {
+      hasChildren ? (
+        <button
+          class="toc-toggle-btn flex items-center justify-center p-0.5 hover:bg-blue-50 rounded transition-colors"
+          data-target={`children-${item.id}`}
+          aria-label={`Toggle ${item.text} subsections`}
+          aria-expanded="true"
+        >
+          <svg class="w-4 h-4 toc-toggle" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M19 9l-7 7-7-7"
+            />
+          </svg>
+        </button>
+      ) : (
+        <div class="w-5 h-5 flex items-center justify-center">
+          <span class="w-4 h-4" />
+        </div>
+      )
+    }
+    <a
+      href={`#${item.id}`}
+      class="flex-1 py-1 px-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded transition-colors"
+    >
+      {item.text}
+    </a>
+  </div>
+
+  {
+    hasChildren && (
+      <div class="toc-children" id={`children-${item.id}`}>
+        {item.children.map((child: any) => (
+          <ToCWithSubHeading item={child} baseIndent={baseIndent + 1} />
+        ))}
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .toc-toggle {
+    transition: transform 0.2s ease;
+  }
+
+  .toc-toggle.collapsed {
+    transform: rotate(-90deg);
+  }
+
+  .toc-children {
+    max-height: 1000px;
+    overflow: hidden;
+    transition:
+      max-height 0.3s ease,
+      opacity 0.2s ease;
+    opacity: 1;
+  }
+
+  .toc-children.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+</style>
+
+<script>
+  // Setup toggle functionality for this component instance
+  function setupToggleHandlers() {
+    const toggleBtns = document.querySelectorAll('.toc-toggle-btn');
+
+    toggleBtns.forEach((toggleBtn) => {
+      // Remove existing listeners to prevent duplicates
+      toggleBtn.removeEventListener('click', handleToggle);
+      toggleBtn.addEventListener('click', handleToggle);
+    });
+  }
+
+  function handleToggle(e: Event) {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const toggleBtn = e.currentTarget as HTMLButtonElement;
+    const targetId = toggleBtn.getAttribute('data-target');
+    const childrenContainer = document.getElementById(targetId!);
+    const toggleIcon = toggleBtn.querySelector('.toc-toggle');
+
+    if (childrenContainer && toggleIcon) {
+      const isCollapsed = childrenContainer.classList.contains('collapsed');
+
+      if (isCollapsed) {
+        childrenContainer.classList.remove('collapsed');
+        toggleIcon.classList.remove('collapsed');
+        toggleBtn.setAttribute('aria-expanded', 'true');
+      } else {
+        childrenContainer.classList.add('collapsed');
+        toggleIcon.classList.add('collapsed');
+        toggleBtn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  }
+
+  // Initialize when component loads
+  document.addEventListener('DOMContentLoaded', setupToggleHandlers);
+
+  // Also setup when content changes (for dynamic updates)
+  if (typeof window !== 'undefined') {
+    const observer = new MutationObserver(() => {
+      setupToggleHandlers();
+    });
+
+    const tocContent = document.getElementById('toc-content');
+    if (tocContent) {
+      observer.observe(tocContent, { childList: true, subtree: true });
+    }
+  }
+</script>

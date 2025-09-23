@@ -2,13 +2,31 @@
 import { getCollection } from 'astro:content';
 
 import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+
 import BaseHead from '../components/BaseHead.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import MainLayout from '../layouts/MainLayout.astro';
+import { cn } from '../utils/cn';
 
 const posts = (await getCollection('posts')).sort(
   (a, b) => b.data.publihsed_date.valueOf() - a.data.publihsed_date.valueOf()
 );
+
+const postsByYear = posts.reduce(
+  (acc, post) => {
+    const year = post.data.publihsed_date.getFullYear();
+    if (!acc[year]) {
+      acc[year] = [];
+    }
+    acc[year].push(post);
+    return acc;
+  },
+  {} as Record<number, typeof posts>
+);
+
+const sortedYears = Object.keys(postsByYear)
+  .map(Number)
+  .sort((a, b) => b - a);
 ---
 
 <!doctype html>
@@ -19,40 +37,43 @@ const posts = (await getCollection('posts')).sort(
 
   <body class="overflow-y-hidden">
     <MainLayout>
-      <section class="flex-1 overflow-y-auto">
-        <ul class="flex flex-col gap-4">
+      <section
+        class={cn(
+          'flex-1 overflow-y-auto',
+          'md:max-w-10/12 md:mx-auto',
+          'lg:max-w-7/12',
+          'px-5 md:px-0 py-10'
+        )}
+      >
+        <div class={cn('flex flex-col gap-8')}>
           {
-            posts.map((post) => {
-              const { title, description, publihsed_date, heroImage } = post.data;
+            sortedYears.map((year) => (
+              <div class={cn('flex flex-col gap-4')}>
+                <h2 class={cn('border-b border-gray-200 pb-2', 'font-bold text-3xl text-gray-800')}>
+                  {year}
+                </h2>
 
-              return (
-                <li>
-                  <a href={`/${post.id}/`}>
-                    <div class="flex flex-col gap-1">
-                      <div class="flex flex-col">
-                        <p class="text-sm text-gray-400">
-                          <FormattedDate date={publihsed_date} />
-                        </p>
+                <div class={cn('flex flex-col gap-4')}>
+                  {postsByYear[year].map((post) => {
+                    const { title, publihsed_date } = post.data;
 
-                        <h3 class="text-2xl font-semibold">{title}</h3>
-                      </div>
+                    return (
+                      <a href={`/${post.id}/`}>
+                        <div class={cn('flex flex-col')}>
+                          <p class={cn('!text-xs text-gray-400')}>
+                            <FormattedDate date={publihsed_date} />
+                          </p>
 
-                      <div class="flex gap-3">
-                        <div class="flex-1">
-                          <p class="line-clamp-2 text-gray-500">{description}</p>
+                          <h4 class={cn('!font-medium !text-md !md:text-lg truncate')}>{title}</h4>
                         </div>
-
-                        <div class="w-[200px]">
-                          <img src={heroImage} alt="" width="200px" height="200px" />
-                        </div>
-                      </div>
-                    </div>
-                  </a>
-                </li>
-              );
-            })
+                      </a>
+                    );
+                  })}
+                </div>
+              </div>
+            ))
           }
-        </ul>
+        </div>
       </section>
     </MainLayout>
   </body>
