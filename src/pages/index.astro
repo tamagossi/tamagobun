@@ -9,12 +9,12 @@ import MainLayout from '../layouts/MainLayout.astro';
 import { cn } from '../utils/cn';
 
 const posts = (await getCollection('posts')).sort(
-  (a, b) => b.data.publihsed_date.valueOf() - a.data.publihsed_date.valueOf()
+  (a, b) => b.data.puiblished_date.valueOf() - a.data.puiblished_date.valueOf()
 );
 
 const postsByYear = posts.reduce(
   (acc, post) => {
-    const year = post.data.publihsed_date.getFullYear();
+    const year = post.data.puiblished_date.getFullYear();
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -42,10 +42,11 @@ const sortedYears = Object.keys(postsByYear)
           'flex-1 overflow-y-auto',
           'md:max-w-10/12 md:mx-auto',
           'lg:max-w-7/12',
-          'px-5 md:px-0 py-10'
+          'px-5 md:px-0 py-10',
+          'w-full'
         )}
       >
-        <div class={cn('flex flex-col gap-8')}>
+        <div class={cn('flex flex-col gap-8 ')}>
           {
             sortedYears.map((year) => (
               <div class={cn('flex flex-col gap-4')}>
@@ -55,13 +56,13 @@ const sortedYears = Object.keys(postsByYear)
 
                 <div class={cn('flex flex-col gap-4')}>
                   {postsByYear[year].map((post) => {
-                    const { title, publihsed_date } = post.data;
+                    const { title, puiblished_date } = post.data;
 
                     return (
                       <a href={`/${post.id}/`}>
                         <div class={cn('flex flex-col')}>
                           <p class={cn('!text-xs text-gray-400')}>
-                            <FormattedDate date={publihsed_date} />
+                            <FormattedDate date={puiblished_date} />
                           </p>
 
                           <h4 class={cn('!font-medium !text-md !md:text-lg truncate')}>{title}</h4>

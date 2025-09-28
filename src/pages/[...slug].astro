@@ -20,7 +20,7 @@ type Props = CollectionEntry<'posts'>;
 const post = Astro.props;
 const { Content } = await render(post);
 
-const { title, description, publihsed_date, updatedDate, heroImage } = post.data;
+const { title, description, puiblished_date, updatedDate, heroImage } = post.data;
 ---
 
 <!doctype html>
@@ -41,7 +41,7 @@ const { title, description, publihsed_date, updatedDate, heroImage } = post.data
             <div class="title flex flex-col gap-1">
               <div class="date">
                 <p class="text-sm text-gray-400">
-                  <FormattedDate date={publihsed_date} />
+                  <FormattedDate date={puiblished_date} />
                 </p>
 
                 {
