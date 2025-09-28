@@ -23,7 +23,7 @@ Here are the four biggest insights that changed everything:
 
 <hr />
 
-Let me start with the most supriding discovery-how writing literally changes the way your brain works.
+Let me start with the most suprising discovery-how writing literally changes the way your brain works.
 
 I've read many books that support this claim, there is a journal that provides a strong evidence about this. One of this is a 2007 study published in the journal _CBE-Life Sciences Education_, The researched titled "Learning to Improve: Using Writing to Increase Critical Thinking Performance in General Education Biology" shows that writing can improve critical thinking skills in students. The study found that students who wrote regularly improved their critical thinking abilities compared to those who did not.
 
