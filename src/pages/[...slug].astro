@@ -6,6 +6,7 @@ import MainLayout from '../layouts/MainLayout.astro';
 import BaseHead from '../components/BaseHead.astro';
 import FormattedDate from '../components/FormattedDate.astro';
 import BlogDetailToC from '../components/blog-detail/BlogDetailToC.astro';
+import { cn } from '../utils/cn';
 
 export async function getStaticPaths() {
   const posts = await getCollection('posts');
@@ -18,51 +19,70 @@ export async function getStaticPaths() {
 type Props = CollectionEntry<'posts'>;
 
 const post = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
-const { title, description, puiblished_date, updatedDate, heroImage } = post.data;
+const { title, description, published_date, updated_date, heroImage } = post.data;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
   <head>
     <BaseHead title={title} description={description} />
   </head>
 
-  <body class="overflow-y-hidden h-screen">
+  <body
+    class={cn(
+      'flex flex-col min-h-screen',
+      'font-sans antialiased',
+      'bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-200'
+    )}
+  >
     <MainLayout>
-      <div class="flex flex-col lg:grid lg:grid-cols-12 lg:gap-8 w-full max-h-full min-h-full">
-        <aside class="hidden lg:block lg:col-span-4 xl:col-span-3">
-          <BlogDetailToC />
-        </aside>
+      <div class={cn('flex flex-col lg:flex-row flex-grow w-full max-w-7xl mx-auto')}>
+        <BlogDetailToC headings={headings} />
 
-        <main class="lg:col-span-8 xl:col-span-9 px-3 py-10 overflow-y-scroll">
-          <article class="flex flex-col w-full gap-5">
-            <div class="title flex flex-col gap-1">
-              <div class="date">
-                <p class="text-sm text-gray-400">
-                  <FormattedDate date={puiblished_date} />
-                </p>
-
-                {
-                  updatedDate && (
-                    <div class="last-updated-on text-sm text-gray-400">
-                      Last updated on <FormattedDate date={updatedDate} />
-                    </div>
-                  )
-                }
+        <main class={cn('flex-grow w-full max-w-4xl mx-auto', 'px-6 py-10 md:px-12 lg:px-16')}>
+          <article class="flex flex-col w-full gap-3">
+            <div class="flex flex-wrap gap-2 mb-6">
+              <div
+                class={cn(
+                  'px-3 py-1 rounded-full text-xs font-medium',
+                  'bg-gray-100 dark:bg-gray-800',
+                  'text-text-secondary-light dark:text-text-secondary-dark'
+                )}
+              >
+                Published <FormattedDate date={published_date} />
               </div>
-
-              <h1 class="text-2xl md:text-3xl lg:text-4xl font-semibold">{title}</h1>
+              {
+                updated_date && (
+                  <div
+                    class={cn(
+                      'px-3 py-1 rounded-full text-xs font-medium',
+                      'bg-gray-100 dark:bg-gray-800',
+                      'text-text-secondary-light dark:text-text-secondary-dark'
+                    )}
+                  >
+                    Updated <FormattedDate date={updated_date} />
+                  </div>
+                )
+              }
             </div>
 
-            <hr class="border-gray-300" />
+            <h1 class={cn('text-4xl md:text-5xl font-bold', 'text-primary dark:text-white')}>
+              {title}
+            </h1>
 
-            <div class="prose prose-lg max-w-none flex flex-co">
+            <div
+              class={cn(
+                'prose prose-lg dark:prose-invert max-w-none',
+                'prose-headings:font-bold prose-headings:tracking-tight',
+                'prose-a:text-primary dark:prose-a:text-white prose-a:no-underline hover:prose-a:underline'
+              )}
+            >
               <div class="hero-image">
                 {
                   heroImage && (
-                    <img width={1020} height={510} src={heroImage} alt="" class="rounded-lg" />
+                    <img width={1020} height={510} src={heroImage} alt="" class="rounded-lg mb-8" />
                   )
                 }
               </div>

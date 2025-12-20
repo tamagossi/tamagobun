@@ -1,0 +1,133 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import MainLayout from '../layouts/MainLayout.astro';
+import AsideLayout from '../layouts/AsideLayout.astro';
+import { cn } from '../utils/cn';
+
+const title = 'About Me.';
+const description = 'About Tamagossi - Software Engineer, Writer, and Lifelong Learner.';
+
+const navItems = [
+  { label: 'Background & Origins', ref: '#background' },
+  { label: 'Approach & Perspective', ref: '#approach' },
+  { label: 'Work & Craft', ref: '#craft' },
+  { label: 'Direction & Curiosity', ref: '#curiosity' },
+];
+---
+
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+
+  <body
+    class={cn(
+      'flex flex-col min-h-screen',
+      'font-sans antialiased',
+      'bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-200'
+    )}
+  >
+    <MainLayout>
+      <div class={cn('flex flex-col md:flex-row flex-grow w-full max-w-7xl mx-auto')}>
+        <AsideLayout items={navItems} />
+
+        <main class={cn('flex-grow w-full max-w-4xl mx-auto', 'px-6 py-10 md:px-12 lg:px-16')}>
+          <article
+            class={cn(
+              'prose prose-lg dark:prose-invert prose-headings:font-bold prose-headings:tracking-tight prose-a:no-underline hover:prose-a:underline',
+              'prose-a:text-primary dark:prose-a:text-white'
+            )}
+          >
+            <h1 class={cn('mb-8 text-4xl md:text-5xl')} id="intro">About Me</h1>
+            <p
+              class={cn(
+                'lead text-xl font-medium leading-relaxed',
+                'text-text-secondary-light dark:text-text-secondary-dark'
+              )}
+            >
+              Hi, I’m Tama.<br />
+              I’ve been a software engineer since 2018. And yes — still am.
+            </p>
+            <div class={cn('w-full h-px', 'my-10', 'bg-border-light dark:bg-border-dark')}></div>
+            <h2 class={cn('mt-12 mb-6 text-3xl scroll-mt-28')} id="background">
+              Background &amp; Origins
+            </h2>
+            <p>What’s funny is, I never planned to be one.</p>
+            <p>
+              When I entered university, I didn’t fully understand what <em
+                >“information technology”</em
+              > meant. I just knew computers existed, and somehow I spent most of my days around them.
+              When a teacher asked me to choose a major, I picked almost randomly. Graphic design didn’t
+              feel right. Information technology sounded… close enough.
+            </p>
+            <p>That decision turned out to matter more than I expected.</p>
+            <p>
+              I didn’t fall in love with software overnight. I grew into it. Slowly. Mostly by
+              breaking things. I learned that mistakes are allowed — even encouraged — as long as
+              you can undo them, understand them, and do better next time. That mindset stayed with
+              me.
+            </p>
+            <p>
+              Software engineering became practical in the most honest sense. It pays the bills. I
+              don’t romanticize that. But I respect it. This job gave me stability, leverage, and a
+              way to keep learning without standing still.
+            </p>
+            <div class={cn('w-full h-px', 'my-10', 'bg-border-light dark:bg-border-dark')}></div>
+            <h2 class={cn('mt-16 mb-6 text-3xl')} id="approach">Approach &amp; Perspective</h2>
+            <p>Over time, learning shaped how I approach problems.</p>
+            <p>
+              I don’t usually start from code. I start from the problem itself — trying to
+              understand the system, the constraints, and the people involved. From there, I break
+              things down layer by layer until the structure makes sense, or until it clearly
+              doesn’t.
+            </p>
+            <p>
+              I care more about clarity than cleverness, and more about decisions than tools.
+              Shipping features is not the hard part. Understanding <em>why</em> a feature should exist,
+              and what it might break later, is where the real work happens.
+            </p>
+            <p>That’s the part I enjoy most.</p>
+            <div class={cn('w-full h-px', 'my-10', 'bg-border-light dark:bg-border-dark')}></div>
+            <h2 class={cn('mt-16 mb-6 text-3xl scroll-mt-28')} id="craft">Work &amp; Craft</h2>
+            <p>In practice, I work across both frontend and backend, mostly on web applications.</p>
+            <p>
+              On the frontend, I frequently use Next.js together with React, Tailwind CSS, React
+              Query, and Zustand. I choose these tools not because they’re trendy, but because they
+              help me reason clearly about UI behavior, state, and data flow.
+            </p>
+            <p>
+              On the backend, I work with Go, often using Fiber, focusing on APIs that are explicit,
+              predictable, and easy to evolve over time.
+            </p>
+            <p>
+              I don’t draw a strict line between frontend and backend. What matters more to me is
+              how the pieces fit together, where complexity should live, and how systems behave as
+              they grow.
+            </p>
+            <div class={cn('w-full h-px', 'my-10', 'bg-border-light dark:bg-border-dark')}></div>
+            <h2 class={cn('mt-16 mb-6 text-3xl')} id="curiosity">Direction &amp; Curiosity</h2>
+            <p>Right now, I live in Indonesia. But I don’t think locally by default.</p>
+            <p>
+              I’m curious about how people build systems elsewhere — maybe Malaysia, Singapore,
+              Japan, or the Middle East. Not because moving abroad is a trophy, but because
+              different places force different trade-offs. And trade-offs are where real learning
+              happens.
+            </p>
+            <p>
+              Outside of programming languages, I also enjoy learning human languages. There’s
+              something oddly satisfying about it — discovering new structure, nuance, and ways of
+              thinking. It scratches the same part of my brain.
+            </p>
+            <div class={cn('w-full h-px', 'my-10', 'bg-border-light dark:bg-border-dark')}></div>
+            <p>
+              You’ll notice this page doesn’t list achievements or buzzwords. That’s intentional.
+              This site is about how I think, how I work, and how I keep growing — not just what
+              I’ve done.
+            </p>
+          </article>
+        </main>
+      </div>
+    </MainLayout>
+  </body>
+</html>

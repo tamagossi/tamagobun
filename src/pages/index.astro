@@ -9,12 +9,12 @@ import MainLayout from '../layouts/MainLayout.astro';
 import { cn } from '../utils/cn';
 
 const posts = (await getCollection('posts')).sort(
-  (a, b) => b.data.puiblished_date.valueOf() - a.data.puiblished_date.valueOf()
+  (a, b) => b.data.published_date.valueOf() - a.data.published_date.valueOf()
 );
 
 const postsByYear = posts.reduce(
   (acc, post) => {
-    const year = post.data.puiblished_date.getFullYear();
+    const year = post.data.published_date.getFullYear();
     if (!acc[year]) {
       acc[year] = [];
     }
@@ -35,7 +35,13 @@ const sortedYears = Object.keys(postsByYear)
     <BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
   </head>
 
-  <body class="overflow-y-hidden">
+  <body
+    class={cn(
+      'overflow-y-hidden',
+      'font-sans antialiased',
+      'bg-background-light dark:bg-background-dark text-text-light dark:text-text-dark transition-colors duration-200'
+    )}
+  >
     <MainLayout>
       <section
         class={cn(
@@ -49,19 +55,19 @@ const sortedYears = Object.keys(postsByYear)
           {
             sortedYears.map((year) => (
               <div class={cn('flex flex-col gap-4')}>
-                <h2 class={cn('border-b border-gray-200 pb-2', 'font-bold text-3xl text-gray-800')}>
+                <h2 class={cn('border-b border-gray-200 pb-2', 'font-bold text-4xl text-gray-800')}>
                   {year}
                 </h2>
 
                 <div class={cn('flex flex-col gap-4')}>
                   {postsByYear[year].map((post) => {
-                    const { title, puiblished_date } = post.data;
+                    const { title, published_date } = post.data;
 
                     return (
                       <a href={`/${post.id}/`}>
                         <div class={cn('flex flex-col')}>
                           <p class={cn('!text-xs text-gray-400')}>
-                            <FormattedDate date={puiblished_date} />
+                            <FormattedDate date={published_date} />
                           </p>
 
                           <h4 class={cn('!font-medium !text-md !md:text-lg truncate')}>{title}</h4>

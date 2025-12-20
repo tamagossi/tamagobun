@@ -1,12 +1,11 @@
 ---
 title: 'The First Ever Blog'
 description: 'The first ever blog post'
-puiblished_date: 'Sep 13 2025'
+published_date: 'Sep 13 2025'
+updated_date: 'Dec 20 2025'
 ---
 
 No, the title is wrong. This is not my first blog ever. I wrote some back in high school, hoping to make a little money through adsense (You might remember blogger was hype back then)
-
-# 1 -- Why I Started Writing (Again)
 
 This year, something clicked. After years of collecting motivation from books, articles, and conversations, I finally decided to act on it.
 
@@ -19,9 +18,9 @@ Here are the four biggest insights that changed everything:
 3. The Ripple Effect of Sharing You Thoughts
 4. Writing Can be My Best resume
 
-## 1.1 -- How Writing Rewires Your Brain
-
 <hr />
+
+## How Writing Rewires Your Brain
 
 Let me start with the most suprising discovery-how writing literally changes the way your brain works.
 
@@ -31,9 +30,9 @@ For me, writing forces me to go beyond recalling what I have read or watched, it
 
 But cognitive benefits are just the beginning. Writing also solves a problem we all face: forgetting what we learn.
 
-## 1.2 -- The Memory Hack That Actually Works
-
 <hr />
+
+## The Memory Hack That Actually Works
 
 As I mentioned previously, while we are writing, our brain is being forced to remember the things that we have read/learnt/watched. And it force you beyond only remembering it, it force you to recall and understand it.
 
@@ -41,9 +40,9 @@ Writing can be the method to practice learning. in the book _Make it Stick: The 
 
 Now, here's where things get really interesting. All this personal growth through writing? It doesn't just benefit you.
 
-## 1.3 -- The Ripple Effect of Sharing You Thoughts
-
 <hr />
+
+## The Ripple Effect of Sharing You Thoughts
 
 You will never know that everything that you have known will have an impact to your surrounding until you spread it to other people. Some people might found that your idea is helpful, some people might found the insight after reading your writing. Some people might feel calm, some people might stop crying because of it. We never know. But I think most of us have experienced that we found the impact after reading someone else's writing.
 
@@ -51,9 +50,9 @@ Myself in particular, I oftenly feel motivated after reading a financial freedom
 
 And if helping others isn't motivation enough, here's the practical benefit for you:
 
-## 1.4 -- Writing Can be My Best resume
-
 <hr />
+
+## Writing Can be My Best resume
 
 I think we have experienced this... which, being rejected by HR when applying a job, after applying a job to another, we still have no received any job offers. But, in other universe, there is a person that received a lot of job offers without putting an effort to applying in every open Linkedin jobpost. If you asking me why I will answer your question with a very simple answer, they build their brand themselves through writing. They show their abilties to the outside world, and how they solve the problem through writing, hence people trust that they can do a good job and solve the problems
 
