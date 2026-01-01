@@ -15,4 +15,15 @@ const posts = defineCollection({
   }),
 });
 
-export const collections = { posts };
+const experiences = defineCollection({
+  loader: glob({ base: './src/content/experiences', pattern: '**/*.{md,mdx}' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+    published_date: z.coerce.date(),
+    updated_date: z.coerce.date().optional(),
+    heroImage: z.string().optional(),
+  }),
+});
+
+export const collections = { posts, experiences };
